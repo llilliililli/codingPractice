@@ -29,15 +29,41 @@
 
 # 미팅숫자
 m = int(input())
-data = (lambda x: data.append(x)(list(map(int, input().split()))))
 
-# for i in range(m):
-#     data.append(list(map(int, input().split())))
+data =[]
+
+for i in range(m):
+    data.append(list(map(int, input().split())))
 
 
 def meetingRoomSchedule(data):
 
-    print(data)
+    cnt = 0
+    result = 0
+
+    data.sort()
+
+    for i in range(0,len(data)):
+
+        for j in range(i+1,len(data)):
+
+            start = data[i][0]
+            startN = data[j][0]
+            end = data[i][1]
+            endN = data[j][1]
+
+            if  start < startN and end <= startN:
+                print('cnt')
+                print(data[i])
+                print(data[j])
+                cnt += 1
+
+        if result < cnt:
+            result = cnt
+            cnt = 0
+
+    return result
 
 
-meetingRoomSchedule(data)
+
+print(meetingRoomSchedule(data))
