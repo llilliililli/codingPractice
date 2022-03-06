@@ -41,6 +41,8 @@ def meetingRoomSchedule(data):
     cnt = 0
     result = 0
 
+    timeChk = None
+
     data.sort()
 
     for i in range(0,len(data)):
@@ -52,15 +54,27 @@ def meetingRoomSchedule(data):
             end = data[i][1]
             endN = data[j][1]
 
-            if  start < startN and end <= startN:
+            if timeChk != None :
+                if timeChk[0] < startN and timeChk[1] <= startN and timeChk[1] != 0:
+                    print('timeChk')
+                    print(timeChk)
+                    print(data[j])
+                    cnt += 1
+
+            elif  start < startN and end <= startN and timeChk == None:
                 print('cnt')
                 print(data[i])
                 print(data[j])
+
+                timeChk = data[j]
                 cnt += 1
 
         if result < cnt:
             result = cnt
             cnt = 0
+            timeChk = None
+            print('result')
+            print(result)
 
     return result
 
