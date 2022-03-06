@@ -28,17 +28,26 @@
 # Hint : (1,4), (5,7), (8,11), (12,14) 회의 사용가능
 
 # 미팅숫자
-m = int(input())
+# m = int(input())
+#
+# data =[]
+#
+# for i in range(m):
+#     data.append(list(map(int, input().split())))
 
-data =[]
 
-for i in range(m):
-    data.append(list(map(int, input().split())))
+
+# 백준 입력 시간초과 이슈
+import sys
+
+m = int(sys.stdin.readline())
+
+data = [list(map(int, input().split())) for _ in range(m)]
 
 
 def meetingRoomSchedule(data):
 
-    cnt = 0
+    cnt = 1
     result = 0
 
     timeChk = None
@@ -52,32 +61,33 @@ def meetingRoomSchedule(data):
             start = data[i][0]
             startN = data[j][0]
             end = data[i][1]
-            endN = data[j][1]
 
             if timeChk != None :
                 if timeChk[0] < startN and timeChk[1] <= startN and timeChk[1] != 0:
-                    print('timeChk')
-                    print(timeChk)
-                    print(data[j])
+                    # print('timeChk')
+                    # print(timeChk)
+                    # print(data[j])
+
+                    timeChk = data[j]
                     cnt += 1
 
             elif  start < startN and end <= startN and timeChk == None:
-                print('cnt')
-                print(data[i])
-                print(data[j])
+                # print('cnt')
+                # print(data[i])
+                # print(data[j])
 
                 timeChk = data[j]
                 cnt += 1
 
         if result < cnt:
             result = cnt
-            cnt = 0
+            cnt = 1
             timeChk = None
-            print('result')
-            print(result)
+            # print('result')
+            # print(result)
 
     return result
 
 
 
-print(meetingRoomSchedule(data))
+#print(meetingRoomSchedule(data))
