@@ -5,6 +5,10 @@
 # 예제 4-1 상하좌우
 # N * N 평면 지도에서 명령어로 여행가의 도착지점 출력하기
 # 명령어 종류 : L - 왼쪽, R - 오른쪽, U - 위, D - 아래
+# n = 5 --> 5 * 5 행렬
+# 1,1 1,2 1,3 1,4 1,5
+# 2,1 2,2 2,3 2,4 2,5
+# ...
 
 # n = int(input())
 # plans = input().split()
@@ -59,17 +63,24 @@ def findTimeNumber3(h):
 # print(findTimeNumber3(h))
 
 # 2. 왕실의 나이트
+# 체스판 8 * 8 좌표 평면
+# 나이트는 L자형태로 이동 가능
+# 가로 : a ~ h
+# 세로 : 1 ~ 8
+# 나이트가 a1에 있을때 이동할 수 있는 경우의 수는 2가지
+# a1, b1, c1 ... h1
+# a2, b2, c2 ... h2
 
 # 나이트의 이동경로 경우의 수
 steps = [(-2,-1),(-1,-2),(1,-2),(2,-1),(2,1),(1,2),(-1,2),(-2,1)]
 
-# input_data = input()
-# row = int(input_data[1])
+#input_data = input()
+#row = int(input_data[1])
 
 # ord() : 문자를 아스키코드로 A -> 65
 # chr() : 아스키코드를 문자로 65 -> A
 
-# column = int(ord(input_data[0])) - int(ord('a')) +1
+#column = int(ord(input_data[0])) - int(ord('a')) +1
 
 def knightMove(row,column,steps):
 
@@ -85,7 +96,7 @@ def knightMove(row,column,steps):
 
     return result
 
-# print(knightMove(row,column,steps))
+#print(knightMove(row,column,steps))
 
 
 # 3. 게임 개발
@@ -95,7 +106,15 @@ def knightMove(row,column,steps):
 
 # 맵 지형 0 : 육지 , 1: 바다
 
-# n, m = map(int, input().split())
+#입력 예시
+# 4 4 --> 맵 크기
+# 1 1 0 --> 캐릭터 위치 ( 1,1 ) , 캐릭터방향 ( 0 : 북쪽 )
+# 1 1 1 1 --> 4 * 4 맵 ( 1 : 이동 불가능, 0 : 이동 가능 )
+# 1 0 0 1
+# 1 1 0 1
+# 1 1 1 1
+
+n, m = map(int, input().split())
 
 
 # 왼쪽으로 회전
@@ -137,6 +156,7 @@ def simulationMove(n,m):
         ny = y + dy[direction]
 
         # 회전 후, 정면에 가보지않은 칸이 존재하는 경우 이동
+        # d : 방문위치 저장 , array : 맵
         if d[nx][ny] == 0 and array[nx][ny] == 0:
             d[nx][ny] = 1
             x = nx
@@ -168,4 +188,4 @@ def simulationMove(n,m):
     return count
 
 
-# print(simulationMove(n,m))
+print(simulationMove(n,m))
