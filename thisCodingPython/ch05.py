@@ -142,6 +142,8 @@ def dfs(graph,v,visited):
             dfs(graph, i ,visited)
 
 
+# DFS 예제 그래프
+# [ 노드번호, 자식노드1, 자식노드2 ]
 graph = [
     [], # 0
     [2,3,8], # 1
@@ -158,7 +160,7 @@ graph = [
 # [ False, False, False, False, False, False, False, False, False, False, False ]
 visited = [False] *9
 
-# print(dfs(graph,1,visited))
+#print(dfs(graph,1,visited))
 
 
 # BFS : 너비우선탐색, 가까운노드부터 탐색하는 알고리즘
@@ -185,12 +187,13 @@ def bfs(graph, start, visited):
                 visited[i] = True
 
 
-# print(bfs(graph,1,visited))
+#print(bfs(graph,1,visited))
 
 
 # DFS vs BFS
 # 스택    큐
 # 재귀함수  큐 자료구조
+# 인접      최소
 
 
 # 3. 음료수 얼려 먹기
@@ -230,16 +233,19 @@ def dfs2(x,y):
         graph[x][y] = 1 # 방문처리
 
         # 상하좌우 위치도 모두 재귀적으로 호출
-        dfs2(x - 1,y)
-        dfs2(x, y - 1)
-        dfs2(x + 1, y)
-        dfs2(x , y + 1)
+        # (0,0) (0,1) (0,2) (0,3)
+        # (1,0) (1,1) (1,2) (1,3)
+        # (2,0) (2,1) (2,2) (2,3)
+        dfs2(x - 1,y)   #상
+        dfs2(x, y - 1)  #좌
+        dfs2(x + 1, y)  #하
+        dfs2(x , y + 1) #우
         return True
 
     return False
 
 
-# print(drinkIcy(n,m))
+#print(drinkIcy(n,m))
 
 
 # 4. 미로 탈출
@@ -247,6 +253,14 @@ def dfs2(x,y):
 # 출발 1,1 ( 실제 0,0 ) , 탈출 N,M
 # 괴물이 있는부분 0, 올바른 길 1
 # 동빈이가 탈출하기 위해 움직여야하는 최소 칸의 개수?
+# 3 * 3 Graph => 아래 그래프의 경우 최소칸 개수는 5개
+# 1 0 0
+# 1 1 1
+# 0 0 1
+
+# 1 0 0
+# 2 3 4
+# 0 0 5 => 최소 5칸
 
 from collections import deque
 
@@ -284,7 +298,7 @@ def bfs2(x,y):
 
             # 해당 노드를 처음 방문한 경우에만 최단거리 기록
             if graph[nx][ny] == 1:
-                graph[nx][ny] = graph[x][y] + 1
+                graph[nx][ny] = graph[x][y] + 1 # 이동할때마 1씩 더해서, 최종 칸수 확인
                 queue.append((nx,ny))
 
     # 가장 오른쪽 아래까지의 최단거리 반환
