@@ -53,6 +53,7 @@ for _ in range(m):
     a, b, c = map(int, input().split()) # a노드에서 b노드로 가는 비용이 c라는 의미
     graph[a].append((b,c))
 
+print(graph)
 
 # 방문하지 않은 노드 중에서, 가장 최단 거리가 짧은 노드의 번호를 반환
 # def get_smallest_node():
@@ -137,18 +138,18 @@ def dijkstra2(start):
         # 가장 최단 거리가 짧은 노드에 대한 정보 꺼내기
         print('q :: ',q)
         dist, now = heapq.heappop(q) # heap에서 가장 작은 항목을 빼낸다!!!
-        print('dist :: ',dist,' now :: ',now)
+        #print('dist :: ',dist,' now :: ',now)
 
         #현재노드가 이미 처리된 적 있는 노드라면 무시
-        print('distance[', now, '] :: ', distance[now])
+        #print('distance[', now, '] :: ', distance[now])
         if distance[now] < dist:
             continue
 
-        print('graph[',now,'] :: ',graph[now])
+        #print('graph[',now,'] :: ',graph[now])
         #현재 노드와 연결된 다른 인접한 노드들을 확인
         for i in graph[now]:
             cost = dist + i[1]
-            print('cost :: '+str(cost))
+            #print('cost :: '+str(cost))
 
             #현재 노드를 거쳐서, 다른 노드로 이동하는 거리가 더 짧은 경우
             if cost < distance[i[0]]:
