@@ -156,7 +156,9 @@ def setting(data):
 
 # 2. 위에서 아래로
 
-# 큰 수에서 작은 수로 내림차순 정열
+# 큰 수에서 작은 수로 내림차순 정렬
+# n = 3  입력 숫자 개수
+# array = [ 15, 27, 12 ] 입력숫자 리스트
 
 # n = int(input())
 #
@@ -175,6 +177,9 @@ def setting(data):
 # 3. 성적이 낮은 순서로 학생 출력하기
 
 # 학생이름과 성적 주어졌을 때, 성적이 낮은 순으로 학생이름 출력
+# n = 2 입력 학생정보 개수
+# 홍길동 95 , 이순신 77
+# [ (홍길동,95) (이순신,77) ] 입력학생정보 리스트
 
 # n = int(input())
 #
@@ -200,17 +205,17 @@ def setting(data):
 
 # A = [1,2,5,4,3] , B=[5,5,6,6,5], K=3 => A = [6,6,5,4,5] => SUM(A) => 26
 
-n,k = map(int,input().split())
-a = list(map(int,input().split()))
-b = list(map(int,input().split()))
-
-a.sort()
-b.sort(reverse=True)
-
-for i in range(k):
-    if a[i] < b[i]:
-        a[i],b[i] = b[i],a[i] # 스와프
-    else:
-        break
-
-print(sum(a))
+# n,k = map(int,input().split())  # n = 5 개의 원소, k번 바꿔치기 가능
+# a = list(map(int,input().split())) # A 배열
+# b = list(map(int,input().split())) # B 배열
+#
+# a.sort() # [ 1,2,3,4,5 ]
+# b.sort(reverse=True) # B배열 내림차순으로 정렬 [ 6,6,5,5,5 ]
+#
+# for i in range(k):
+#     if a[i] < b[i]:
+#         a[i],b[i] = b[i],a[i] # 스와프
+#     else:
+#         break
+#
+# print(sum(a)) # 바꿔치기 정렬된 A 리스트 합산

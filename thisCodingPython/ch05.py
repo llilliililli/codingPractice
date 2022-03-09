@@ -203,6 +203,12 @@ def bfs(graph, start, visited):
 # 이 때 얼음 틀의 모양이 주어졌을 때 생성되는 총 아이스크림의 개수는 ?
 # 문제 4 * 5 틀에서는 3개가 생성된다.
 
+# graph 4*5 ==> return 3
+# 00110
+# 00011
+# 11111
+# 00000
+
 # n, m = map(int, input().split())
 #
 # graph = []

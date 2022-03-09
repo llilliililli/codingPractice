@@ -53,8 +53,10 @@ def binary_search(array, target, start ,end):
 
 
 # n (원소의 개수)과 target (찾고자 하는 문자열)을 입력받기 ( 시간복잡도 O(logN) )
+# ex. 10 7 => n = 10 총 원소 개수, target = 7 찾아야하는 원소
 # n, target = list(map(int,input().split()))
 #
+# ex. array = [ 1,3,5,7,9,11,13,15,17,19 ]
 # array = list(map(int,input().split()))
 #
 #
@@ -63,7 +65,7 @@ def binary_search(array, target, start ,end):
 # if result == None:
 #     print('원소가 존재하지 않습니다.')
 # else:
-#     print(result+1)
+#     print(result+1) # target 원소 위치 return
 
 
 # 예제 7-3 반복문으로 구현한 이진 탐색 소스코드
@@ -138,10 +140,11 @@ import sys
 # 게수 정렬 이용
 
 # n = int(input())
+# array [ 0, .. ,0 ] => len(1000000)
 # array = [0] * 1000001
 #
 # for i in input().split():
-#     array[int(i)] = 1
+#     array[int(i)] = 1 # ==> [ 2, 3, 5 ] ==> [ 0,1,1,0,1 .. ]
 #
 # m = int(input())
 # x = list(map(int,input().split()))
@@ -156,12 +159,12 @@ import sys
 # 집합 자료형 이용
 
 # n = int(input())
-# array = set(map(int,input().split()))
+# array = set(map(int,input().split())) # 4 2 1 ==> { 1,2,4 } 자동정렬 및 딕셔너리형식
 #
 # m = int(input())
 # x = list(map(int,input().split()))
 #
-# for i in x:
+# for i in x: # x = [ 5,1,2 ] ==> i=5 , i=1, i=2
 #     if i in array:
 #         print('YES',end=' ')
 #     else:
@@ -173,12 +176,13 @@ import sys
 
 # 파라메트릭 서치 : 최적화 문제를 결정 문제로 바꾸어 해결하는 기법
 
-n, m = list(map(int, input().split()))
+n, m = list(map(int, input().split())) # n=4 array 입력 원소 수, m=6 => 남은 떡길이 손님은 6cm 떡만 가져감
 
-array = list(map(int, input().split()))
+array = list(map(int, input().split())) # array =[ 19,15,10,17 ] ==> 떡 리스트
+# 15cm로 맞춰서 짤라야, [ 4,0,0,2 ] 남은 떡길이 합계 6으로 손님이 가져간다! 고로 return = 15
 
 start = 0
-end = max(array)
+end = max(array) # 가장 긴 떡길이 19
 
 result = 0
 
