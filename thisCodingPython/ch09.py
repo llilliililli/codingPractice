@@ -189,56 +189,60 @@ def dijkstra2(start,n):
 
 INF = int(1e9)
 
-n = int(input()) # 노드 개수
-m = int(input()) # 간선 개수
-
-graph = [[INF]*(n+1) for _ in range(n+1)] # 2차원 리스트 ( 그래프 생성 및 모든값 무한으로 초기화 )
+# n = int(input()) # 노드 개수
+# m = int(input()) # 간선 개수
+#
+# graph = [[INF]*(n+1) for _ in range(n+1)] # 2차원 리스트 ( 그래프 생성 및 모든값 무한으로 초기화 )
 #print(graph)
 
-# 자기 자신에서 자기 자신으로 가는 비용 0으로 초기화
-for a in range(1,n+1):
-    for b in range(1, n+1):
-        if a==b :
-            graph[a][b] = 0
+def floydWalshall(n,m,graph):
 
-
-
-# 각 간선 정보 입력 받아 그 값으로 초기화
-for _ in range(m):
-    a,b,c = map(int,input().split())
-    graph[a][b] = c
-
-
-print(graph)
-#[ [1000000000, 1000000000, 1000000000, 100000000, 1000000000],
-# [1000000000, 0, 4, 1000000000, 6], # 0 => 1번노드 자기자신 비용, 4 => 2번노드까지 비용, 6 => 4번노드까지 비용
-# [1000000000, 3, 0, 7, 1000000000],
-# [1000000000, 5, 1000000000, 0, 4],
-# [1000000000, 1000000000, 1000000000, 2, 0] ]
-
-# 점화식에 따라 플로이드 워셜 알고리즘 수행
-for k in range(1, n+1):
-    for a in range(1, n+1):
+    # 자기 자신에서 자기 자신으로 가는 비용 0으로 초기화
+    for a in range(1,n+1):
         for b in range(1, n+1):
-            graph[a][b] = min(graph[a][b], graph[a][k]+graph[k][b])
+            if a==b :
+                graph[a][b] = 0
 
 
-# 수행된 결과 출력
-for a in range(1, n+1):
-    for b in range(1,n+1):
 
-        if graph[a][b] == INF:
-            #도달할 수 없는 경우 INFINITY 출력
-            print("INFINITY", end=" ")
-        else:
-            # 도달할 수 있는 경우 거리 출력 ( 노드 4개인 경우, 모든 노드로 가는 최단거리 값 출력 )
-            print(graph[a][b],end=" ")
-            # 0 4 8 6 3 0 7 9 5 9 0 4 7 11 2 0
-            # 모든 노드 최단 거리 출력
-            # 0 4 8 6 #  4: 1번에서 2번까지 최단거리, 8: 1번에서 3번까지 최단거리, 6: 1번에서 4번까지 최단거리
-            # 3 0 7 9
-            # 5 9 0 4
-            # 7 11 2 0
+    # 각 간선 정보 입력 받아 그 값으로 초기화
+    for _ in range(m):
+        a,b,c = map(int,input().split())
+        graph[a][b] = c
+
+
+    print(graph)
+    # [ [1000000000, 1000000000, 1000000000, 100000000, 1000000000],
+    # [1000000000, 0, 4, 1000000000, 6], # 0 => 1번노드 자기자신 비용, 4 => 2번노드까지 비용, 6 => 4번노드까지 비용
+    # [1000000000, 3, 0, 7, 1000000000],
+    # [1000000000, 5, 1000000000, 0, 4],
+    # [1000000000, 1000000000, 1000000000, 2, 0] ]
+
+    # 점화식에 따라 플로이드 워셜 알고리즘 수행
+    for k in range(1, n + 1):
+        for a in range(1, n + 1):
+            for b in range(1, n + 1):
+                graph[a][b] = min(graph[a][b], graph[a][k] + graph[k][b])
+
+    # 수행된 결과 출력
+    for a in range(1, n + 1):
+        for b in range(1, n + 1):
+
+            if graph[a][b] == INF:
+                # 도달할 수 없는 경우 INFINITY 출력
+                print("INFINITY", end=" ")
+            else:
+                # 도달할 수 있는 경우 거리 출력 ( 노드 4개인 경우, 모든 노드로 가는 최단거리 값 출력 )
+                print(graph[a][b], end=" ")
+                # 0 4 8 6 3 0 7 9 5 9 0 4 7 11 2 0
+                # 모든 노드 최단 거리 출력
+                # 0 4 8 6 #  4: 1번에서 2번까지 최단거리, 8: 1번에서 3번까지 최단거리, 6: 1번에서 4번까지 최단거리
+                # 3 0 7 9
+                # 5 9 0 4
+                # 7 11 2 0
+
+#floydWalshall(n,m,graph)
+
 
 
 # 2. 미래 도시
@@ -248,7 +252,7 @@ for a in range(1, n+1):
 # (1번, 2번), (1번, 3번), (1번, 4번), (2번, 4번), (3번, 4번), (3번, 5번), (4번, 5번)
 #  1번 -> 3번 -> 5번 -> 4번 순으로 총 3만큼 시간 이동할 수 있다.
 
-# 입력 예시
+# 입력1 예시
 # 5 7 -> 회사개수, 간선개수
 # 1 2 -> K -> X 이동 루트
 # 1 3
@@ -257,5 +261,159 @@ for a in range(1, n+1):
 # 3 4
 # 3 5
 # 4 5
+# 4 5 -> 거쳐갈 노드 X와 최종 도착 노드 K
+
+#출력1 예시
+# 3 # 최단 거리 3
+
+# 입력2 예시
+#4 2 # 4 : 거쳐갈 노트 X , 2 : 최종 목적지 노드 k
+#1 3
+#2 4
+#3 4 -> 거쳐갈 노드 X와 최종 도착 노드 K
+
+#출력2 예시
+# -1 # X번 회사에 도달할 수 없을 경우 -1 출력
+
+INF = int(1e9) # 무한을 의미하는 값 10억 설정
+
+# n,m = map(int,input().split()) # n : 노드 개수, m : 간선 개수
+# graph = [[INF]*(n+1) for _ in range(n+1)] # 2차원 리스트 ( 그래프 생성 및 모든값 무한으로 초기화 )
+
+def futureCity(n,m,graph):
+
+    # 자기 자신에서 자기 자신으로 가는 비용 0으로 초기화
+    for a in range(1, n + 1):
+        for b in range(1, n + 1):
+            if a == b:
+                graph[a][b] = 0
+
+    # 각 간선 정보 입력 받아 그 값으로 초기화
+    for _ in range(m):
+        # a,b 가 서로가는 비용은 1로 설정
+        a, b = map(int, input().split())
+        graph[a][b] = 1
+        graph[b][a] = 1
+
+    print(graph)
+    #[[1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000],
+    # [1000000000, 0, 1, 1, 1, 1000000000],
+    # [1000000000, 1, 0, 1000000000, 1, 1000000000],
+    # [1000000000, 1, 1000000000, 0, 1, 1],
+    # [1000000000, 1, 1, 1, 0, 1],
+    # [1000000000, 1000000000, 1000000000, 1, 1, 0]]
+
+    # 거쳐 갈 노드 X와 최종 목적지 노드 K를 입력받기
+    x,k = map(int, input().split())
+
+    # 점화식에 따라 플로이드 워셜 알고리즘 수행
+    for k in range(1, n + 1):
+        for a in range(1, n + 1):
+            for b in range(1, n + 1):
+                graph[a][b] = min(graph[a][b], graph[a][k] + graph[k][b])
 
 
+    # 수행된 결과를 출력
+    distance = graph[1][k] + graph[k][x]
+
+
+    if distance >= INF:
+        # 도달 할 수 없는 경우 -1 출력
+        print('-1')
+    else:
+        # 도달 할 수 있는 경우 최단 거리를 출력
+        print(distance)
+
+# futureCity(n,m,graph)
+
+
+# 3.전보
+# 어떤나라에는 N개의 도시가 존재, X라는 도시에서 Y라는 도시로 전보를 보내고자 한다면 통로가 필요 ( Y -> X 반대도 같음 )
+# C라는 도시에서 위급상황 발생 시, 전보를 받게되는 도시는 몇개이며, 총 걸리는 소요시간 계산하시오
+
+# 입력 예시
+# 3 2 1 # n,m,start
+# 1 2 4 # x,y,z
+# 1 3 2
+
+# 출력 예시
+# 2 4
+
+
+
+import sys
+input = sys.stdin.readline
+INF = int(1e9) # 무한값을 의미 : 10억으로 설정
+#
+# # 노드 개수, 간선 개수 입력
+n,m,start = map(int,input().split())
+#
+#
+# # 각 노드에 연결되어 있는 노드에 대한 정보 담는 리스트
+graph = [[] for i in range(n+1)]
+#
+#
+# 최단 거리 테이블을 모두 무한으로 초기화
+distance = [INF] * (n+1)
+
+# # 모든 간선 정보를 입력받기
+for _ in range(m):
+    x, y, z = map(int, input().split()) # x노드에서 y노드로 가는 비용이 z라는 의미
+    graph[x].append((y,z))
+
+print(graph)
+# [[], [(2, 4), (3, 2)], [], []]
+
+import heapq # 힙 라이브러리
+
+def messageSend(start):
+
+    q = []
+
+    # 시작노드로 가기위한 최단경로는 0으로 설정하여, 큐에 삽입
+    heapq.heappush(q, (0, start))
+    distance[start] = 0
+
+    while q: # 큐가 비어있지 않다면 계속 진행
+
+        # 가장 최단 거리가 짧은 노드에 대한 정보 꺼내기
+        print('q :: ',q)
+        dist, now = heapq.heappop(q) # heap에서 가장 작은 항목을 빼낸다!!!
+        #print('dist :: ',dist,' now :: ',now)
+
+        #현재노드가 이미 처리된 적 있는 노드라면 무시
+        #print('distance[', now, '] :: ', distance[now])
+        if distance[now] < dist:
+            continue
+
+        #print('graph[',now,'] :: ',graph[now])
+        #현재 노드와 연결된 다른 인접한 노드들을 확인
+        for i in graph[now]:
+            cost = dist + i[1]
+            #print('cost :: '+str(cost))
+
+            #현재 노드를 거쳐서, 다른 노드로 이동하는 거리가 더 짧은 경우
+            if cost < distance[i[0]]:
+                distance[i[0]] = cost
+                heapq.heappush(q,(cost,i[0]))
+
+
+messageSend(start)
+
+
+# 도달할 수 있는 노드 개수
+count = 0
+
+#도달 할 수 있는 노드 중에서, ㄱ다장 멀리 있는 노드와의 최단 거리
+max_distance = 0
+
+for d in distance:
+
+    # 도달할 수 있는 노드인 경우만
+    if d != INF:
+        count += 1
+        max_distance = max(max_distance,d)
+
+
+# 시작 노드는 제외해야 하므로 count -1을 출력
+print(count-1, max_distance)
